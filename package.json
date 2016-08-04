@@ -1,0 +1,25 @@
+{
+  "name": "house-party-sharing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongoose": "^4.5.8",
+    "shortid": "^2.2.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha test\\test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2nd47/house-party-sharing.git"
+  },
+  "author": "Daniil '2nd47' Kouznetsov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/2nd47/house-party-sharing/issues"
+  },
+  "homepage": "https://github.com/2nd47/house-party-sharing#readme"
+}
