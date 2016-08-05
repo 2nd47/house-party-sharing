@@ -1,8 +1,8 @@
 var mongoose = require('mongoose'),
-    helpers = require('./modelHelpers'),
     shortid = require('shortid'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
+    helpers = require('./modelHelpers'),
+    Listing = require('./listing'),
+    Schema = mongoose.Schema;
 
 var user = new Schema({
   _id: {
@@ -13,10 +13,22 @@ var user = new Schema({
     type: String,
     required: true
   },
+  email: {
+    type: String,
+    required: true
+  },
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
   name: {
     type: String,
     required: true
-  }
+  },
+  listings: [{
+    type: Listing,
+    default: []
+  }]
 }, { collection : 'users', timestamps: true });
 
 user.statics.findByUsername =
