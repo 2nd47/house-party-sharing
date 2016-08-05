@@ -20,17 +20,21 @@ module.exports = function(app) {
   app.get('/about', function(req, res, next) {
 
   });
+
   app.get('/login', auth.login);
   app.get('/logout', auth.logout);
   app.get('/signup', auth.signup);
 
+  /*
   // AUTHENTICATED ROUTES
   app.get('/browse', auth.ensureAuthenticated, listing.browse);
   app.get('/create', auth.ensureAuthenticated, listing.create);
 
-  app.use('/api/*', auth.ensureAuthenticated);
+  app.all('/api/*', auth.ensureAuthenticated);
   app.get('/api/listing/getAll', listing.getAll);
-  app.post('/api/listing/post', listing.createListing);
+  app.post('/api/listing/post', listing.saveListing);
   app.post('/api/listing/purchase', user.purchaseListing);
   app.delete('api/listing/:listing_id', listing.deleteListing);
+  */
+
 };
