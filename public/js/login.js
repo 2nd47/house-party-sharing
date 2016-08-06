@@ -14,8 +14,14 @@ $( document ).ready(function() {
 
   // If the user clicks outside the modal then close it
   $modalLogin.click(function(event) {
-    if ($modalLogin.css('display', 'block')) {
+    if (event.target.id == 'modal-login') {
       $modalLogin.css('display', 'none');
     };
   });
+
+  $('.message a').click(function(){
+    $('.login-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+    $('.register-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+  });
+
 });

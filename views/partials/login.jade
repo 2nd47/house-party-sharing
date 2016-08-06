@@ -1,11 +1,19 @@
 // Login modal
 .modal#modal-login
-  .modal-content
-    .modal-header
-      span.close x
-      h2 Modal Header
-    .modal-body
-      p Some text in the Modal Body
-      p Some other text...
-    .modal-footer
-      p Modal Footer
+  .login-page
+    .form
+      .register-form
+        input(type='text', placeholder='username')
+        input(type='password', placeholder='password')
+        input(type='password', placeholder='confirm password')
+        input(type='text', placeholder='email address')
+        input(type='text', placeholder='confirm email address')
+        button create
+        p.message Already registered?
+          a  Sign In
+      .login-form
+        input(type='text', placeholder='username')
+        input(type='password', placeholder='password')
+        button login
+        p.message Not registered?
+          a  Sign up
