@@ -4,9 +4,10 @@ var mongoose = require('mongoose'),
 		Schema = mongoose.Schema;
 
 var listing = new Schema({
-  _id: {
+  _shortid: {
     type: String,
-    default: shortid.generate
+    default: shortid.generate,
+    unique: true
   },
 	name: {
 		type: String,
@@ -31,7 +32,14 @@ var listing = new Schema({
 	picturePaths: [{
 		type: String,
 		default: []
-	}]
+	}],
+  dateFrom: {
+    type: Date,
+    default: Date.now
+  },
+  dateTo: {
+    type: Date
+  }
 }, { collection : 'listings', timestamps: true });
 
 module.exports = mongoose.model('Listing', listing);

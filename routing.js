@@ -1,6 +1,6 @@
 var express = require('express');
 
-module.exports = function(app) {
+module.exports = function(app, view, auth) {
 
   // Set static files and viewing
   app.use(express.static(__dirname + '/public'));
@@ -10,20 +10,32 @@ module.exports = function(app) {
   // ROUTES BEGIN HERE
   app.use(function(req, res, next){
     res.status(404);
-    res.render('404');
+    res.render('index');
   });
 
   // UNAUTHENTICATED ROUTES
   app.get('/', function(req, res, next) {
-
+    res.redirect('/');
   });
   app.get('/about', function(req, res, next) {
-
+    res.redirect('/');
   });
 
-  app.get('/login', auth.login);
-  app.get('/logout', auth.logout);
-  app.get('/signup', auth.signup);
+  app.get('/signup', function(req, res, next) {
+    res.redirect('/');
+  });
+
+  app.get('/login', function(req, res, next) {
+    res.redirect('/');
+  });
+
+  app.get('/logout', function(req, res, next) {
+    res.redirect('/');
+  });
+
+  app.post('/signup', auth.signup);
+  app.post('/login', auth.login);
+  app.post('/logout', auth.logout);
 
   /*
   // AUTHENTICATED ROUTES
