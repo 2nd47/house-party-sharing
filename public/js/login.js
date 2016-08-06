@@ -3,6 +3,8 @@ $( document ).ready(function() {
   var $modalLogin = $('#modal-login');
   var $modalClose = $('span.close');
   var $buttonLogin = $('#button-login');
+  var $loginForm = $('.login-form');
+  var $signupForm = $('.signup-form');
 
   $buttonLogin.click(function() {
     $modalLogin.css('display', 'block');
@@ -21,7 +23,7 @@ $( document ).ready(function() {
 
   $('.message a').click(function(){
     $('.login-form').animate({height: "toggle", opacity: "toggle"}, "slow");
-    $('.register-form').animate({height: "toggle", opacity: "toggle"}, "slow");
+    $('.signup-form').animate({height: "toggle", opacity: "toggle"}, "slow");
   });
 
 });
