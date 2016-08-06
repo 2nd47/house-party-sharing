@@ -10,7 +10,7 @@ module.exports = function(app, view, auth) {
   // ROUTES BEGIN HERE
   app.use(function(req, res, next){
     res.status(404);
-    res.render('index');
+    res.render('404');
   });
 
   // UNAUTHENTICATED ROUTES

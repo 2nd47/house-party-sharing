@@ -13,11 +13,8 @@ $( document ).ready(function() {
   });
 
   // If the user clicks outside the modal then close it
-  $(window).click(function(event) {
-    console.log($modalLogin.css('display')[0] == 'block');
-    console.log(event.target != $modalLogin);
-    console.log(event.target);
-    if ($modalLogin.css('display')[0] === 'block' && event.target == $modalLogin) {
+  $modalLogin.click(function(event) {
+    if ($modalLogin.css('display', 'block')) {
       $modalLogin.css('display', 'none');
     };
   });

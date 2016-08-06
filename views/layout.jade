@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    // Metadata
+    meta(charset='UTF-8')
+    title= pageTitle
+    meta(name='author', content='Daniil Kouznetsov')
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    block meta
+    
+    // CSS
+    link(type='text/css', rel='stylesheet', href='/css/reset.css')
+    link(type='text/css', rel='stylesheet', href='/css/partials.css')
+    link(type='text/css', rel='stylesheet', href='/css/login.css')
+    block css
+    
+    // JS
+    script(src='/js/jquery-3.1.0.min.js')
+    script(src='/js/login.js')
+    block script
+    
+  body
+    include ./partials/header.jade
+    main
+      include ./partials/login.jade
+      block content
+    include ./partials/footer.jade
