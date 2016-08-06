@@ -7,9 +7,30 @@ var startServer = function(testServer) {
 
   // require necessary modules and establish routing
   var User = require('./app/models/user')
-    , view = require('./app/controllers/view')(app)
     , auth = require('./app/controllers/auth')(app)
-    , routing = require('./routing')(app, view, auth);
+    , listing = require('./app/controllers/listing')(app)
+    , routing = require('./routing')(app, auth, listing);
+
+  /*app.use(function(req, res, next){
+    res.status(404);
+
+    // respond with html page
+    if (req.accepts('html')) {
+      res.render('404');
+      return;
+    }
+
+    // respond with json
+    if (req.accepts('json')) {
+      res.send({ error: 'Not found' });
+      return;
+    }
+
+    // default to plain-text. send()
+    res.type('txt').send('Not found');
+  });*/
+
+  var db = require('./db')();
 
   app.listen(APP_PORT);
   console.log('Server listening on port ' + APP_PORT);

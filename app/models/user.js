@@ -1,5 +1,4 @@
 var mongoose = require('mongoose')
-  , findOrCreate = require('mongoose-findorcreate')
   , bcrypt = require('bcryptjs')
   , shortid = require('shortid')
   , helpers = require('./modelHelpers')
@@ -18,7 +17,7 @@ var user = new Schema({
     required: true,
     unique: true
   },
-  passwordHash: {
+  password: {
     type: String,
     required: true
   },
@@ -32,7 +31,6 @@ var user = new Schema({
   },
   name: {
     type: String,
-    required: true
   },
   listings: [{
     type: Listing,
@@ -42,29 +40,26 @@ var user = new Schema({
 
 // Hash passwords before storing them in the database
 user.pre('save', function(next) {
-  if (!this.isModified('password')) return next();
+  var newUser = this;
+  if (!newUser.isModified('password')) return next();
 
   bcrypt.genSalt(SALT_ROUNDS, function(err, salt) {
     if (err) return next(err);
-
-    bcrypt.hash(this.password, salt, function(err, hash) {
+    bcrypt.hash(newUser.password, salt, function(err, hash) {
       if (err) return next(err);
 
-      this.password = hash;
+      newUser.password = hash;
       next();
     });
   });
-
 });
 
 user.statics.findByUsername =
   helpers.finderForProperty("username", { findOne: true, caseInsensitive: true });
 
-user.methods.validPassword =  function(password) {
+user.methods.validPassword =  function(cadidatePass) {
   // Change to async when possible
-  return bcrypt.compareSync(password, this.passwordHash);
+  return bcrypt.compareSync(cadidatePass, this.password);
 }
-
-user.plugin(findOrCreate);
 
 module.exports = mongoose.model('User', user);

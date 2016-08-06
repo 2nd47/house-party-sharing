@@ -1,13 +1,17 @@
-/// Common header
+// Common header
 header
   nav
     li
-      a About
+      a(href='/about') About
     li
-      a Browse
+      a(href='/browse') Browse
     li
-      a Create
-    li
-      a#button-login Sign in
-
+      a(href='/create') Create
+    if user
+      li
+        a#button-logout Sign out
+    else
+      li
+        a#button-login Sign in
+      
 include ./login.jade
