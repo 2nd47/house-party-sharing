@@ -4,8 +4,6 @@ header
     li
       a(href='/') BrandUsed
     li
-      a(href='/about') About
-    li
       a(href='/browse') Browse
     li
       a(href='/create') Create
@@ -14,7 +12,8 @@ header
         a(href='/admin') Admin
     if user
       li
-        a#button-logout Sign out
+        form(action='/logout', method='post')#logout-form
+          a#button-logout Sign out
     else
       li
         a#button-login Sign in

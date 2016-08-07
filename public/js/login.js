@@ -12,23 +12,12 @@ $( document ).ready(function() {
     , $loginButton = $('#submitLogin')
     , $signupButton = $('#submitSignup');
 
-  var getFormData = function(dataForms) {
-    values = {};
-    $.each(dataForms.children().serializeArray(), function(index, field) {
-      values[field.name] = field.value;
-    });
-    return values;
-  }
+  $buttonLogout.click(function() {
+    $('#logout-form').submit();
+  });
 
   $buttonLogin.click(function() {
     $modalLogin.css('display', 'block');
-  });
-
-  $buttonLogout.click(function() {
-    $.post(
-      '/logout',
-      'json'
-    );
   });
 
   $modalClose.click(function() {
@@ -45,22 +34,6 @@ $( document ).ready(function() {
   $loginSignupSwap.click(function(){
     $loginForm.animate({height: "toggle", opacity: "toggle"}, "slow");
     $signupForm.animate({height: "toggle", opacity: "toggle"}, "slow");
-  });
-
-  $loginButton.click(function() {
-    $.post(
-      '/login',
-      getFormData($loginData),
-      'json'
-    );
-  });
-
-  $signupButton.click(function() {
-    $.post(
-      '/signup',
-      getFormData($signupData),
-      'json'
-    );
   });
 
 });

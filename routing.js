@@ -24,16 +24,13 @@ module.exports = function(app, auth, user, listing) {
   app.get('/', function(req, res, next) {
     if (req.user) {
       res.redirect('/browse');
+    } else {
+      res.render('landing');
     }
-    res.render('landing');
   });
 
   app.get('/404', function(req, res, next) {
     res.render('404');
-  });
-
-  app.get('/about', function(req, res, next) {
-    res.render('about');
   });
 
   app.get('/admin', auth.isLoggedIn, auth.isAdmin, function(req, res, next) {
@@ -47,13 +44,17 @@ module.exports = function(app, auth, user, listing) {
   // AUTHENTICATED ROUTES
   app.get('/browse', auth.isLoggedIn, listing.browse);
   app.get('/create', auth.isLoggedIn, listing.create);
+  app.get('/user/:username/profile');
 
   /*
   app.all('/api/*', auth.isLoggedIn);
   app.get('/api/listing/getAll', listing.getAll);
-  app.post('/api/listing/post', listing.saveListing);
-  app.post('/api/listing/purchase', user.purchaseListing);
+  app.post('/api/listing', listing.saveListing);
+  app.post('/api/listing/:listing_id/purchase', user.purchaseListing);
+  app.post('/api/listing/:listing_id/edit', user.purchaseListing);
   app.delete('api/listing/:listing_id', listing.deleteListing);
+  app.all('/api/admin/*, auth.isAdmin');
+  app.post('/api/admin/database/reset', admin.resetDatabase);
   */
 
 };

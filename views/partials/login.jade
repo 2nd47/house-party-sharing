@@ -3,19 +3,19 @@
   .login-page
     .form
       .login-form
-        .form-fillable
+        form(action='/login', method='post').form-fillable#login-data
           input(type='text', name='username', placeholder='username')
           input(type='password', name='password', placeholder='password')
-        input(type='submit', value='login')#submitLogin
+          input(type='submit', value='login', form='login-data')#submitLogin
         p.message Not registered?
           a  Sign up
       .signup-form
-        .form-fillable
+        form(action='/signup', method='post').form-fillable#signup-data
           input(type='text', name='username', placeholder='username')
           input(type='password', name='password', placeholder='password')
           input(type='password', name='password2', placeholder='confirm password')
           input(type='text', name='email', placeholder='email address')
           input(type='text', name='email2', placeholder='confirm email address')
-        input(type='submit', value='create')#submitSignup
+          input(type='submit', value='create', form='signup-data')#submitSignup
         p.message Already registered?
           a  Sign In

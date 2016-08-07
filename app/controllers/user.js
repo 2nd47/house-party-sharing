@@ -31,7 +31,16 @@ module.exports = function(app) {
   }
 
   this.profile = function(req, res, next) {
-    res.render('/')
+    var username = req.params.username;
+    User.find({
+      username: username
+    }).
+      exec(function(err, user) {
+      if (err) { throw err; }
+      else {
+        res.render('profile', )
+      }
+    });
   }
 
   return this;
