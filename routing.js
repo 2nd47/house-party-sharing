@@ -1,6 +1,10 @@
-var express = require('express');
+var express = require('express')
+  , morgan = require('morgan');
 
-module.exports = function(app, view, auth) {
+module.exports = function(app, auth, listing) {
+
+  // Log all routes
+  app.use(morgan('dev'));
 
   // Set static files and viewing
   app.use(express.static(__dirname + '/public'));
@@ -8,41 +12,40 @@ module.exports = function(app, view, auth) {
   app.set('views', __dirname + '/views');
 
   // ROUTES BEGIN HERE
-  app.use(function(req, res, next){
-    res.status(404);
-    res.render('404');
+  // Set user local for Jade so we can render the 'Sign In/Out' button properly
+  app.use(function(req, res, next) {
+    if (req.user) {
+      res.locals.user = req.user;
+    }
+    next();
   });
 
   // UNAUTHENTICATED ROUTES
   app.get('/', function(req, res, next) {
-    res.redirect('/');
+    if (req.user) {
+      res.redirect('/browse');
+    }
+    res.render('landing');
   });
+
+  app.get('/404', function(req, res, next) {
+    res.render('404');
+  })
+
   app.get('/about', function(req, res, next) {
-    res.redirect('/');
-  });
-
-  app.get('/signup', function(req, res, next) {
-    res.redirect('/');
-  });
-
-  app.get('/login', function(req, res, next) {
-    res.redirect('/');
-  });
-
-  app.get('/logout', function(req, res, next) {
-    res.redirect('/');
+    res.render('about');
   });
 
   app.post('/signup', auth.signup);
   app.post('/login', auth.login);
   app.post('/logout', auth.logout);
 
-  /*
   // AUTHENTICATED ROUTES
-  app.get('/browse', auth.ensureAuthenticated, listing.browse);
-  app.get('/create', auth.ensureAuthenticated, listing.create);
+  app.get('/browse', auth.isLoggedIn, listing.browse);
+  app.get('/create', auth.isLoggedIn, listing.create);
 
-  app.all('/api/*', auth.ensureAuthenticated);
+  /*
+  app.all('/api/*', auth.isLoggedIn);
   app.get('/api/listing/getAll', listing.getAll);
   app.post('/api/listing/post', listing.saveListing);
   app.post('/api/listing/purchase', user.purchaseListing);
