@@ -2,11 +2,16 @@
 header
   nav
     li
+      a(href='/') BrandUsed
+    li
       a(href='/about') About
     li
       a(href='/browse') Browse
     li
       a(href='/create') Create
+    if user && user.isAdmin
+      li
+        a(href='/admin') Admin
     if user
       li
         a#button-logout Sign out

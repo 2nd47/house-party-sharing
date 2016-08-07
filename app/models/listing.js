@@ -1,7 +1,8 @@
-var mongoose = require('mongoose'),
-    shortid = require('shortid'),
-    helpers = require('./modelHelpers'),
-		Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+  , shortid = require('shortid')
+  , helpers = require('./modelHelpers')
+	, Schema = mongoose.Schema
+  , ObjectId = mongoose.Schema.Types.ObjectId
 
 var listing = new Schema({
   _shortid: {
@@ -13,6 +14,10 @@ var listing = new Schema({
 		type: String,
 		required: true
 	},
+  owner: {
+    type: ObjectId,
+    required: true
+  },
 	designer: {
 		type: String,
 		required: true

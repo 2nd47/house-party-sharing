@@ -6,10 +6,12 @@ var startServer = function(testServer) {
   var APP_PORT = process.env.APP_PORT || 3002;
 
   // require necessary modules and establish routing
-  var User = require('./app/models/user')
-    , auth = require('./app/controllers/auth')(app)
+  var auth = require('./app/controllers/auth')(app)
+    , user = require('./app/controllers/user')(app)
     , listing = require('./app/controllers/listing')(app)
-    , routing = require('./routing')(app, auth, listing);
+    , routing = require('./routing')(app, auth, user, listing);
+
+  user.hardcodeUsers();
 
   /*app.use(function(req, res, next){
     res.status(404);

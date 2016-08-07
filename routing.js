@@ -1,7 +1,7 @@
 var express = require('express')
   , morgan = require('morgan');
 
-module.exports = function(app, auth, listing) {
+module.exports = function(app, auth, user, listing) {
 
   // Log all routes
   app.use(morgan('dev'));
@@ -30,10 +30,14 @@ module.exports = function(app, auth, listing) {
 
   app.get('/404', function(req, res, next) {
     res.render('404');
-  })
+  });
 
   app.get('/about', function(req, res, next) {
     res.render('about');
+  });
+
+  app.get('/admin', auth.isLoggedIn, auth.isAdmin, function(req, res, next) {
+    res.render('admin');
   });
 
   app.post('/signup', auth.signup);

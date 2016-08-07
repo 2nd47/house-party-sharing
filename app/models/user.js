@@ -4,6 +4,7 @@ var mongoose = require('mongoose')
   , helpers = require('./modelHelpers')
   , Listing = require('./listing')
   , Schema = mongoose.Schema
+  , ObjectId = mongoose.Schema.Types.ObjectId
   , SALT_ROUNDS = 10;
 
 var user = new Schema({
@@ -33,9 +34,13 @@ var user = new Schema({
     type: String,
   },
   listings: [{
-    type: Listing,
+    type: ObjectId,
     default: []
-  }]
+  }],
+  isAdmin: {
+    type: Boolean,
+    default: false
+  }
 }, { collection : 'users', timestamps: true });
 
 // Hash passwords before storing them in the database

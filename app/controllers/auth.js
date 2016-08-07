@@ -109,20 +109,22 @@ module.exports = function(app) {
 
   passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
-      done(err, user);
+      if (err) { return done(err); }
+      else {
+        done(null, user)
+      };
     });
   });
 
   this.signup = passport.authenticate('local-signup', {
     successRedirect: '/browse',
-    failureRedirect: '/404',
-    failureFlash: true
+    failureRedirect: '/'
   });
 
   // Send user to their profile on successful login
   this.login = passport.authenticate('local-login', {
     successRedirect: '/browse',
-    failureRedirect: '/404'
+    failureRedirect: '/'
   });
 
   this.logout = function(req, res, next) {
@@ -134,6 +136,14 @@ module.exports = function(app) {
   this.isLoggedIn = function(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
+    } else {
+      res.redirect('/');
+    }
+  }
+
+  this.isAdmin = function(req, res, next) {
+    if (req.user.isAdmin) {
+      next();
     } else {
       res.redirect('/');
     }
