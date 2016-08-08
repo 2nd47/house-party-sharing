@@ -2,7 +2,25 @@ var Listing = require('../models/listing')
   , User = require('../models/user')
   , Review = require('../models/review')
   , helpers = require('./helpers')()
+  , async = require('async')
   , fs = require('fs');
+
+// cb = function(err, reviews) {...}
+var getAllReviews = function(listing, cb) {
+  var reviews = [];
+  async.each(listing.reviews, function(review, callback) {
+    Review.findById(review, function(err, review) {
+      if (err) { callback(err) }
+      else {
+        reviews.push(review);
+        callback();
+      }
+    });
+  }, function(err) {
+    if (err) { throw err; }
+    cb(null, reviews.reverse());
+  });
+}
 
 module.exports = function(app) {
 
@@ -108,12 +126,18 @@ module.exports = function(app) {
     function (err, listing ) {
       if (err) { throw err; }
       else {
-        helpers.userHasPurchased(req.user._id, listing._id, function(err, hasPurchased) {
+        getAllReviews(listing, function(err, reviews) {
           if (err) { throw err; }
           else {
-            res.render('listing', {
-              listing: listing,
-              hasPurchased: hasPurchased
+            helpers.userHasPurchased(req.user._id, listing._id, function(err, hasPurchased) {
+              if (err) { throw err; }
+              else {
+                res.render('listing', {
+                  listing: listing,
+                  reviews: reviews,
+                  hasPurchased: hasPurchased
+                });
+              }
             });
           }
         });
@@ -131,6 +155,7 @@ module.exports = function(app) {
       else {
         var review = new Review();
         review.user = req.user._id;
+        review.username = req.user.username;
         review.itemReviewed = listing._id;
         review.rating = req.body.rating;
         review.comment = req.body.comment;
