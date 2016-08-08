@@ -18,7 +18,22 @@ var getAllReviews = function(listing, cb) {
     });
   }, function(err) {
     if (err) { throw err; }
-    cb(null, reviews.reverse());
+    reviews = reviews.reverse();
+    async.each(reviews, function(review, callback) {
+      User.findById(review.user, function(err, user) {
+        if (err) { callback(err); }
+        else {
+          console.log('review was ' + review);
+          review.username = user.username;
+          review.avatar = user.avatar;
+          console.log('review now ' + review);
+          callback();
+        }
+      });
+    }, function(err) {
+      if (err) { throw err; }
+      cb(null, reviews.reverse());
+    });
   });
 }
 
@@ -155,7 +170,6 @@ module.exports = function(app) {
       else {
         var review = new Review();
         review.user = req.user._id;
-        review.username = req.user.username;
         review.itemReviewed = listing._id;
         review.rating = req.body.rating;
         review.comment = req.body.comment;

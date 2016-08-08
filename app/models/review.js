@@ -12,10 +12,6 @@ var review = new Schema({
     ref: 'User',
     required: true
   },
-  username: {
-    type: String,
-    required: true
-  },
   itemReviewed: {
     type: ObjectId,
     ref: 'Listing',
