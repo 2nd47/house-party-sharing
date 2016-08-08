@@ -33,6 +33,9 @@ var user = new Schema({
   name: {
     type: String,
   },
+  bio: {
+    type: String
+  },
   listings: [{
     type: ObjectId,
     default: []
@@ -40,6 +43,10 @@ var user = new Schema({
   isAdmin: {
     type: Boolean,
     default: false
+  },
+  avatar: {
+    type: String,
+    default: "/images/users/placeholder.png"
   }
 }, { collection : 'users', timestamps: true });
 

@@ -1,0 +1,18 @@
+// Landing Page contents
+extends layout
+
+block css
+
+block title
+  title BrandUsed
+
+block content
+  h1 Listing page!
+  h2 Details below:
+  p Name: #{listing.name}
+  p Designer: #{listing.designer}
+  p Price: #{listing.price}
+  p Sizing: #{listing.sizing}
+  p Description: #{listing.description}
+  p Item becomes avaialable on: #{listing.dateFrom}
+  p Item stops being available on: #{listing.dateTo}

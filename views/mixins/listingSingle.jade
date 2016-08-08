@@ -1,0 +1,11 @@
+// Display a listing given data retrieved from the api route
+mixin listingSingle(listing)
+  .card
+    a(href='/browse/' + listing._shortid)
+      img(src=listing.display, alt="Display image for " + listing.name)
+    .details
+      p.name
+        a(href='/browse/' + listing._shortid) #{listing.name}
+      p.designer #{listing.designer}
+      p.price #{listing.price}
+      p.distance PLACEHOLDER

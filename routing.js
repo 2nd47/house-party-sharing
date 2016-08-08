@@ -22,15 +22,11 @@ module.exports = function(app, auth, user, listing) {
 
   // UNAUTHENTICATED ROUTES
   app.get('/', function(req, res, next) {
-    if (req.user) {
-      res.redirect('/browse');
-    } else {
-      res.render('landing');
-    }
+    res.render('landing');
   });
 
   app.get('/404', function(req, res, next) {
-    res.render('404');
+    res.status(404).render('404');
   });
 
   app.get('/admin', auth.isLoggedIn, auth.isAdmin, function(req, res, next) {
@@ -41,20 +37,23 @@ module.exports = function(app, auth, user, listing) {
   app.post('/login', auth.login);
   app.post('/logout', auth.logout);
 
-  // AUTHENTICATED ROUTES
-  app.get('/browse', auth.isLoggedIn, listing.browse);
-  app.get('/create', auth.isLoggedIn, listing.create);
-  app.get('/user/:username/profile');
+  // AUTHENTICATION RULES
+  app.all('/:type(api|browse|profile|create)/*', auth.isLoggedIn);
+  app.all('/api/admin/*', auth.isAdmin);
 
-  /*
-  app.all('/api/*', auth.isLoggedIn);
+  // AUTHENTICATED ROUTES
+  app.get('/browse', listing.browsePage);
+  app.get('/browse/:listing_shortid', listing.viewOne);
+
+  app.get('/create', auth.isLoggedIn, listing.createPage);
+
+  app.get('/profile/:username', user.profile);
+
   app.get('/api/listing/getAll', listing.getAll);
-  app.post('/api/listing', listing.saveListing);
-  app.post('/api/listing/:listing_id/purchase', user.purchaseListing);
-  app.post('/api/listing/:listing_id/edit', user.purchaseListing);
-  app.delete('api/listing/:listing_id', listing.deleteListing);
-  app.all('/api/admin/*, auth.isAdmin');
-  app.post('/api/admin/database/reset', admin.resetDatabase);
-  */
+  app.post('/api/listing/create', listing.create);
+  app.post('/api/listing/:listing_id/purchase', listing.purchase);
+  //app.post('/api/listing/:listing_id/edit', listing.editListing);
+  app.delete('api/listing/:listing_id', listing.delete);
+  //app.post('/api/admin/database/reset', admin.resetDatabase);
 
 };
