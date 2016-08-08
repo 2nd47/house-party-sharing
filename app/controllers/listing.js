@@ -1,5 +1,6 @@
 var Listing = require('../models/listing')
   , User = require('../models/user')
+  , Review = require('../models/review')
   , helpers = require('./helpers')()
   , fs = require('fs');
 
@@ -121,8 +122,41 @@ module.exports = function(app) {
   }
 
   this.review = function(req, res) {
-    //
-    res.redirect('/404');
+    Listing.findOne({ _shortid: req.params.listing_shortid },
+    function(err, listing) {
+      if (err) { throw err; }
+      else if (!listing) {
+        res.redirect('/404');
+      }
+      else {
+        var review = new Review();
+        review.user = req.user._id;
+        review.itemReviewed = listing._id;
+        review.rating = req.body.rating;
+        review.comment = req.body.comment;
+
+        review.save(function(err, review) {
+          if (err) { throw err; }
+          else {
+            listing.reviews.push(review._id);
+            listing.save(function(err, listing) {
+              if (err) { throw err; }
+              else {
+                User.findById(req.user._id, function(err, user) {
+                  user.reviewedListings.push(review._id);
+                  user.save(function(err, user) {
+                    if (err) { throw err; }
+                    else {
+                      res.redirect('/browse/' + listing._shortid);
+                    }
+                  });
+                });
+              }
+            })
+          }
+        });
+      }
+    });
   }
 
   return this;

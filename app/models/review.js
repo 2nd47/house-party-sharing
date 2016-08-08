@@ -7,7 +7,7 @@ var mongoose = require('mongoose')
   , ObjectId = mongoose.Schema.Types.ObjectId
 
 var review = new Schema({
-  owner: {
+  user: {
     type: ObjectId,
     ref: 'User',
     required: true
