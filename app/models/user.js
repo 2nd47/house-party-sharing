@@ -2,7 +2,6 @@ var mongoose = require('mongoose')
   , bcrypt = require('bcryptjs')
   , shortid = require('shortid')
   , helpers = require('./modelHelpers')
-  , Message = require('./message')
   , Schema = mongoose.Schema
   , ObjectId = mongoose.Schema.Types.ObjectId
   , SALT_ROUNDS = 10;
@@ -69,7 +68,8 @@ var user = new Schema({
     default: []
   }],
   messages: [{
-    type: Message,
+    type: ObjectId,
+    ref: 'Message',
     default: []
   }]
 }, { collection : 'users', timestamps: true });

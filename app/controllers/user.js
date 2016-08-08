@@ -106,20 +106,24 @@ module.exports = function(app) {
           if (err) { throw err; }
           else {
             // Filter for just the other user's messages
-            console.log(user.messages);
-            var messages = _.filter(user.messages, function(message) {
-              console.log('message sender is ' + message.sender);
-              console.log('message receiver is ' + message.receiver);
-              console.log('message user is ' + user._id);
-              console.log('message otherUser is ' + otherUser._id);
-              return (message.sender.equals(user._id) &&
-                message.receiver.equals(otherUser._id))
-                ||
-                (message.sender.equals(otherUser._id) &&
-                message.receiver.equals(user._id));
-              res.json(messages);
-            });
-          }
+              Message.find({
+                $or : [
+                  {
+                    sender: user._id,
+                    receiver: otherUser._id
+                  },
+                  {
+                    sender: otherUser._id,
+                    receiver: user._id
+                  }
+                ]
+              }, function(err, messages) {
+                if (err) { throw err; }
+                else {
+                  res.status(200).json(messages);
+                }
+              });
+          };
         });
       }
     });
@@ -137,6 +141,7 @@ module.exports = function(app) {
             // Create a new message to hold the information
             var newMessage = new Message();
             newMessage.sender = sender._id;
+            newMessage.avatar = sender.avatar;
             newMessage.receiver = receiver._id;
             newMessage.text = req.body.message;
 
@@ -144,9 +149,9 @@ module.exports = function(app) {
               if (err) { throw err; }
               else {
                 // Push the message to the sender and receiver
-                async.parallel({
-                  sender: function(callback) {
-                    sender.messages.push(message);
+                async.parallel([
+                  function(callback) {
+                    sender.messages.push(message._id);
                     sender.save(function(err, user) {
                       if (err) { callback(err, null); }
                       else {
@@ -154,8 +159,8 @@ module.exports = function(app) {
                       }
                     });
                   },
-                  receiver: function(callback) {
-                    receiver.messages.push(message);
+                  function(callback) {
+                    receiver.messages.push(message._id);
                     receiver.save(function(err, user) {
                       if (err) { callback(err, null); }
                       else {
@@ -163,10 +168,10 @@ module.exports = function(app) {
                       }
                     });
                   }
-                }, function(err, results) {
+                ], function(err, results) {
                   if (err) { throw err; }
                   else {
-                    res.status(200).send();
+                    res.status(200).json(message);
                   }
                 });
               }
