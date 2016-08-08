@@ -2,7 +2,7 @@ var express = require('express')
   , morgan = require('morgan')
   , upload = require('multer')({ dest: 'uploads/' });
 
-module.exports = function(app, auth, admin, user, listing) {
+module.exports = function(app, auth, admin, user, listing, search) {
 
   // Log all routes
   app.use(morgan('dev'));
@@ -39,7 +39,7 @@ module.exports = function(app, auth, admin, user, listing) {
   app.post('/logout', auth.logout);
 
   // AUTHENTICATION RULES
-  app.all('/:type(api|browse|profile|create|inbox)/*', auth.isLoggedIn);
+  app.all('/:type(api|browse|search|profile|create|inbox)/*', auth.isLoggedIn);
   app.all('/api/admin/*', auth.isAdmin);
 
   // AUTHENTICATED ROUTES
@@ -50,6 +50,8 @@ module.exports = function(app, auth, admin, user, listing) {
 
   app.get('/inbox', user.getInbox);
 
+  app.get('/search', search.searchPage);
+
   app.get('/profile/:username', user.profile);
 
   app.post('/api/profile/:username/friend', user.addFriend);
@@ -57,6 +59,7 @@ module.exports = function(app, auth, admin, user, listing) {
 
   app.get('/api/listing/getAll', listing.getAll);
   app.post('/api/listing/create', upload.single('display'), listing.create);
+  app.post('/api/search', search.search);
   app.post('/api/listing/:listing_shortid/purchase', listing.purchase);
   app.post('/api/listing/:listing_shortid/review', listing.review);
   //app.post('/api/listing/:listing_shortid/edit', listing.editListing);

@@ -10,7 +10,8 @@ var startServer = function(testServer) {
     , admin = require('./app/controllers/admin')(app)
     , user = require('./app/controllers/user')(app)
     , listing = require('./app/controllers/listing')(app)
-    , routing = require('./routing')(app, auth, admin, user, listing);
+    , search = require('./app/controllers/search')(app)
+    , routing = require('./routing')(app, auth, admin, user, listing, search);
 
   /* admin.hardcodeUsers(function() {
     console.log('Created both test accounts!');

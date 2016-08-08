@@ -1,0 +1,19 @@
+// Landing Page contents
+extends layout
+
+block title
+	title BrandUsed
+
+block css
+	link(type='text/css', rel='stylesheet', href='/css/search.css')
+	
+block script
+	script(src='/js/search.js')
+
+block content
+	p Search Page!
+	.input-search
+		form(action='/api/listing/search', method='POST')#search-form
+			input(type='text', name='search', placeholder='Search')
+			input(type='submit', value='Search', form='search-form')
+	.results-search

@@ -7,6 +7,9 @@ header
       a(href='/browse') Browse
     li
       a(href='/create') Create
+    if user
+      li
+        a(href='/search') Search
     if user && user.isAdmin
       li
         a(href='/admin') Admin
