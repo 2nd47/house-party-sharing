@@ -71,10 +71,19 @@ module.exports = function(app) {
   this.purchase = function(req, res) {
     Listing.findOne({ _shortid : req.params.listing_shortid },
     function(err, listing) {
-      listing.purchasers.push(req.user._id);
-      listing.save(function(err) {
-        res.redirect('/browse/' + );
-      });
+      if (err) { throw err; }
+      else {
+        listing.purchasers.push(req.user._id);
+        listing.save(function(err) {
+          User.findById(req.user._id, function(err, user) {
+            if (err) { throw err; }
+            else {
+              user.purchased.push(listing._id);
+              res.redirect('/browse/' + req.params.listing_shortid);
+            }
+          });
+        });
+      }
     });
   }
 
