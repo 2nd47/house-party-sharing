@@ -6,8 +6,6 @@ block css
 block title
   title BrandUsed
 
-- var urlId = window.location.href.split("/").pop();
-
 block content
   h1 Listing page!
   h2 Details below:
@@ -18,5 +16,5 @@ block content
   p Description: #{listing.description}
   p Item becomes avaialable on: #{listing.dateFrom}
   p Item stops being available on: #{listing.dateTo}
-  form(action='/api/listing/' + urlId +'/purchase', method='post')#purchase
+  form(action='/api/listing/' + listing._shortid +'/purchase', method='post')#purchase
     input(type='submit', value='Purchase', form='purchase')

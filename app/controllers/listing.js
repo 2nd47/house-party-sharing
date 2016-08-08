@@ -52,7 +52,7 @@ module.exports = function(app) {
           helpers.mkdirIfNotExist(localPath, function() {
             localPath += '/' + req.file.originalName;
             fs.writeFile(localPath, data, function (err) {
-              Listing.findById(listing._shortid, function(err, listingUpdate) {
+              Listing.findById(listing._id, function(err, listingUpdate) {
                 if (err) { throw err; }
                 else {
                   listingUpdate.display = publicPath;
@@ -79,7 +79,10 @@ module.exports = function(app) {
             if (err) { throw err; }
             else {
               user.purchased.push(listing._id);
-              res.redirect('/browse/' + req.params.listing_shortid);
+              user.save(function(err) {
+                if (err) { throw err; }
+                res.redirect('/browse/' + req.params.listing_shortid);
+              });
             }
           });
         });
