@@ -56,8 +56,7 @@ module.exports = function(app, auth, admin, user, listing) {
   app.post('/api/listing/:listing_shortid/review', listing.review);
   //app.post('/api/listing/:listing_shortid/edit', listing.editListing);
   app.delete('api/listing/:listing_shortid', listing.delete);
-
-
+  app.post('/api/profile/:username/add', user.addFriend);
 
   app.post('/api/admin/db/drop/all', admin.resetDatabase);
 
