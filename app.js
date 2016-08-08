@@ -12,9 +12,9 @@ var startServer = function(testServer) {
     , listing = require('./app/controllers/listing')(app)
     , routing = require('./routing')(app, auth, admin, user, listing);
 
-  admin.hardcodeUsers(function() {
+  /* admin.hardcodeUsers(function() {
     console.log('Created both test accounts!');
-  });
+  }); */
 
   /*app.use(function(req, res, next){
     res.status(404);

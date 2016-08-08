@@ -16,6 +16,11 @@ block content
   .item-listings
     each listing in listings
       +listingSingle(listing)
-  .addFriend
-    form(action='/api/profile/' + user.username + '/add', method='post')#addFriend
-      input(type='submit', value='Add to Friends', form='addFriend')
+  if !isFriends 
+    .addFriend
+      form(action='/api/profile/' + user.username + '/friend', method='post')#addFriend
+        input(type='submit', value='Add to Friends', form='addFriend')
+  else
+    .removeFriend
+      form(action='/api/profile/' + user.username + '/friend', method='delete')#removeFriend
+        input(type='submit', value='Remove from Friends', form='removeFriend')

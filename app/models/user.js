@@ -63,6 +63,11 @@ var user = new Schema({
     type: ObjectId,
     ref: 'Review',
     default: []
+  }],
+  friends: [{
+    type: ObjectId,
+    ref: 'User',
+    default: []
   }]
 }, { collection : 'users', timestamps: true });
 

@@ -16,7 +16,7 @@ module.exports = function() {
     console.log('MongoDB connection opened to ' + dbUri);
   });
   db.on("error", console.error.bind(console, 'DATABASE ERROR:'));
-  db.collections['users'].drop(function(err){
+  /*db.collections['users'].drop(function(err){
     console.log('users collection dropped');
-  });
+  });*/
 }
