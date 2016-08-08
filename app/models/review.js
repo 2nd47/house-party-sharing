@@ -17,7 +17,7 @@ var review = new Schema({
     ref: 'Listing',
     required: true
   },
-  text: {
+  comment: {
     type: String,
     required: true
   },

@@ -53,8 +53,12 @@ module.exports = function(app, auth, admin, user, listing) {
   app.get('/api/listing/getAll', listing.getAll);
   app.post('/api/listing/create', upload.single('display'), listing.create);
   app.post('/api/listing/:listing_shortid/purchase', listing.purchase);
+  app.post('/api/listing/:listing_shortid/review', listing.review);
   //app.post('/api/listing/:listing_shortid/edit', listing.editListing);
   app.delete('api/listing/:listing_shortid', listing.delete);
+
+
+
   app.post('/api/admin/db/drop/all', admin.resetDatabase);
 
 };

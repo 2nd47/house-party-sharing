@@ -1,4 +1,6 @@
-var fs = require('fs');
+var User = require('../models/user')
+  , Listing = require('../models/listing')
+  , fs = require('fs');
 
 module.exports = function() {
 
@@ -13,6 +15,27 @@ module.exports = function() {
       } else {
         //just in case there was a different error:
         callback(err)
+      }
+    });
+  }
+
+  // Callback should be: function(error, bool) {
+  //  if (bool) {
+  //    /* User has purchased this listing */
+  //  }
+  // }
+  this.userHasPurchased = function(userId, listingId, cb) {
+    Listing.find({
+      _id: listingId,
+      purchasers: { $in: [userId] }
+    }).
+    select('_id reviews').
+    exec(function(err, listing) {
+      if (err) { cb(err, null); }
+      else if (listing) {
+        cb(null, true);
+      } else {
+        cb(null, null);
       }
     });
   }

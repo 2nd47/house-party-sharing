@@ -106,8 +106,22 @@ module.exports = function(app) {
     Listing.findOne({ _shortid : req.params.listing_shortid },
     function (err, listing ) {
       if (err) { throw err; }
-      res.render('listing', { listing: listing });
+      else {
+        helpers.userHasPurchased(req.user._id, listing._id, function(err, hasPurchased) {
+          if (err) { throw err; }
+          else {
+            res.render('listing', {
+              listing: listing,
+              hasPurchased: hasPurchased
+            });
+          }
+        });
+      }
     });
+  }
+
+  this.review = function(req, res) {
+    res.redirect('/404');
   }
 
   return this;

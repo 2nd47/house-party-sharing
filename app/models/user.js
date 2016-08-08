@@ -59,7 +59,7 @@ var user = new Schema({
     ref: 'Listing',
     default: []
   }],
-  reviews: [{
+  reviewedListings: [{
     type: ObjectId,
     ref: 'Review',
     default: []
