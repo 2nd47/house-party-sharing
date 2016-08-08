@@ -2,7 +2,7 @@
 header
   nav
     li
-      a(href='/') BrandUsed
+      a(href='/').active BrandUsed
     li
       a(href='/browse') Browse
     li
@@ -10,12 +10,13 @@ header
     if user
       li
         a(href='/search') Search
-    if user && user.isAdmin
       li
-        a(href='/admin') Admin
-    if user
+        a(href='/profile') My Profile
       li
         a(href='/inbox')#navInbox Inbox
+      if user.isAdmin
+        li
+          a(href='/admin') Admin
       li
         form(action='/logout', method='post')#logout-form
           a#button-logout Sign out

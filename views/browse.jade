@@ -2,12 +2,11 @@
 extends layout
 
 block css
-  link(type='text/css', rel='stylesheet', href='/css/browse.css')
+  link(type='text/css', rel='stylesheet', href='/css/listing.css')
 
 block title
   title BrandUsed
 
 block content
-  p Browse Page!
   each listing in listings
     +listingSingle(listing)

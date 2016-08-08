@@ -71,32 +71,25 @@ module.exports = function(app) {
     listing.save(function(err, listing) {
       if (err) { throw err; }
       else {
-        fs.readFile(req.file.path, function (err, data) {
-          var localPath =
-            __dirname +
-            '../../public/images/listings/' +
-            listing._shortid;
-          var publicPath =
-            '/images/listings/' +
-            listing._shortid +
-            '/' +
-            req.file.originalname;
-          helpers.mkdirIfNotExist(localPath, function() {
-            localPath += '/' + req.file.originalName;
-            fs.writeFile(localPath, data, function (err) {
+        //var localPath = req.file.path.replace(/\/[^\/]*$/, '/' + req.file.originalname);
+        //var localPath = req.file.path;
+        var publicPath = '/images/uploads/' + req.file.filename + '.jpg';
+        fs.rename(req.file.path, req.file.path + '.jpg', function(err) {
+          if (err) { throw err; }
+          else {
+            Listing.findById(listing._id, function(err, listingUpdate) {
               if (err) { throw err; }
-              Listing.findById(listing._id, function(err, listingUpdate) {
-                if (err) { throw err; }
-                else {
-                  listingUpdate.display = publicPath;
-                  listingUpdate.save(function(err) {
-                    if (err) { throw err; }
+              else {
+                listingUpdate.display = publicPath;
+                listingUpdate.save(function(err) {
+                  if (err) { throw err; }
+                  else {
                     res.redirect('/browse/' + listing._shortid);
-                  });
-                }
-              });
+                  }
+                });
+              }
             });
-          });
+          }
         });
       }
     });

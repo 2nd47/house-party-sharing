@@ -6,6 +6,11 @@ var Listing = require('../models/listing')
 
 module.exports = function(app) {
 
+  // Redirect the user to their own profile
+  this.profileSelf = function(req, res) {
+    res.redirect('/profile/' + req.user.username);
+  }
+
   this.profile = function(req, res) {
     var username = req.params.username;
     // Find the user by username

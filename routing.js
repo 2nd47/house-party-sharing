@@ -1,6 +1,6 @@
 var express = require('express')
   , morgan = require('morgan')
-  , upload = require('multer')({ dest: 'uploads/' });
+  , upload = require('multer')({ dest: 'public/images/uploads/' });
 
 module.exports = function(app, auth, admin, user, listing, search) {
 
@@ -52,6 +52,7 @@ module.exports = function(app, auth, admin, user, listing, search) {
 
   app.get('/search', search.searchPage);
 
+  app.get('/profile', user.profileSelf);
   app.get('/profile/:username', user.profile);
 
   app.post('/api/profile/:username/friend', user.addFriend);
