@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
   , shortid = require('shortid')
   , helpers = require('./modelHelpers')
+  , Review = require('./review')
 	, Schema = mongoose.Schema
   , ObjectId = mongoose.Schema.Types.ObjectId
 
@@ -62,6 +63,11 @@ var listing = new Schema({
   purchasers: [{
     type: ObjectId,
     ref: 'User',
+    default: []
+  }],
+  reviews: [{
+    type: ObjectId,
+    ref: 'Review',
     default: []
   }]
 }, { collection : 'listings', timestamps: true });

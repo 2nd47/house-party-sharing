@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
   , shortid = require('shortid')
   , helpers = require('./modelHelpers')
   , Listing = require('./listing')
+  , Review = require('./review')
   , Schema = mongoose.Schema
   , ObjectId = mongoose.Schema.Types.ObjectId
   , SALT_ROUNDS = 10;
@@ -56,6 +57,11 @@ var user = new Schema({
   purchased: [{
     type: ObjectId,
     ref: 'Listing',
+    default: []
+  }],
+  reviews: [{
+    type: ObjectId,
+    ref: 'Review',
     default: []
   }]
 }, { collection : 'users', timestamps: true });
