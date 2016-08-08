@@ -24,6 +24,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node app.js",
     "test": "mocha test\\test.js"
   },
   "repository": {
