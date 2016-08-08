@@ -7,13 +7,7 @@ module.exports = function(app) {
     var username = req.params.username;
     // Find the user by username
     User.findOne({ username: username }).
-    select({
-      username: 1,
-      name: 1,
-      bio: 1,
-      listings: 1,
-      avatar: 1
-    }).
+    select('_shortid username name bio listings avatar').
     exec(function(err, user) {
       if (err) { throw err; }
       else {
@@ -28,6 +22,10 @@ module.exports = function(app) {
         });
       }
     });
+  }
+
+  this.addFriend = function(req, res, next) {
+    res.redirect('/404');
   }
 
   return this;

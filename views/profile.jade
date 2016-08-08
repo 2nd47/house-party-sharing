@@ -16,3 +16,6 @@ block content
   .item-listings
     each listing in listings
       +listingSingle(listing)
+  .addFriend
+    form(action='/api/profile/' + user.username + '/add', method='post')#addFriend
+      input(type='submit', value='Add to Friends', form='addFriend')
