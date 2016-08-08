@@ -17,8 +17,15 @@ html
     
     // JS
     script(src='/js/jquery-3.1.0.min.js')
+    script(src='/js/jquery.form.min.js')
     script(src='/js/login.js')
     block script
+    
+    // Jade mixins
+    include ./mixins/listingSingle.jade
+    include ./mixins/reviewSingle.jade
+    include ./mixins/friendSingle.jade
+    include ./mixins/messageSingle.jade
     
   body
     include ./partials/header.jade

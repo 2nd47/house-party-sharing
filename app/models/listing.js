@@ -16,6 +16,7 @@ var listing = new Schema({
 	},
   owner: {
     type: ObjectId,
+    ref: 'User',
     required: true
   },
 	designer: {
@@ -23,7 +24,7 @@ var listing = new Schema({
 		required: true
 	},
 	price: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	sizing: {
@@ -34,17 +35,44 @@ var listing = new Schema({
 		type: String,
 		default: ""
 	},
-	picturePaths: [{
+  display: {
+    type: String,
+    default: "images/listings/placeholder.png"
+  },
+	images: [{
 		type: String,
 		default: []
 	}],
   dateFrom: {
-    type: Date,
+    type: String,
     default: Date.now
   },
   dateTo: {
-    type: Date
-  }
+    type: String
+  },
+  // [latitude, longitude]
+  geolocation: [{
+    type: Number,
+    default: []
+  }],
+  location: {
+    type: String,
+    default: '27 King\'s College Circle, Toronto'
+  },
+  purchasers: [{
+    type: ObjectId,
+    ref: 'User',
+    default: []
+  }],
+  reviews: [{
+    type: ObjectId,
+    ref: 'Review',
+    default: []
+  }]
 }, { collection : 'listings', timestamps: true });
 
-module.exports = mongoose.model('Listing', listing);
+if (mongoose.models.Listing) {
+  module.exports = mongoose.model('Listing');
+} else {
+  module.exports = mongoose.model('Listing', listing);
+}

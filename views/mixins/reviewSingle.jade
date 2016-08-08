@@ -1,0 +1,8 @@
+// Display a single review associated with a listing or user
+mixin reviewSingle(review)
+  .review
+    a(href='/profile/' + review.username)
+      img(src=review.avatar, width='64px', height='64px')
+      p #{review.username}
+    p #{review.rating}
+    p #{review.comment}

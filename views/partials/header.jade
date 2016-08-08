@@ -12,6 +12,8 @@ header
         a(href='/admin') Admin
     if user
       li
+        a(href='/inbox')#navInbox Inbox
+      li
         form(action='/logout', method='post')#logout-form
           a#button-logout Sign out
     else

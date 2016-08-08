@@ -1,0 +1,24 @@
+// Landing Page contents
+extends layout
+
+block title
+	title BrandUsed
+
+block css
+	link(type='text/css', rel='stylesheet', href='/css/inbox.css')
+	
+block script
+	script(src='/js/inbox.js')
+
+block content
+	p Inbox Page!
+	.friends
+		each friend in friends
+			+friendSingle(friend)
+	.messages
+		//each message in messages
+			//+messageSingle(message)
+		.message-input
+			form(action='/api/inbox/', method='POST')#message-form
+				input(type='text', name='message', placeholder='Enter your message here')
+				input(type='submit', value='Send', form='message-form')

@@ -1,0 +1,5 @@
+// Display a friend on the message page
+mixin friendSingle(friend)
+	.card-friend
+		img(src=friend.avatar, width='64px', height='64px').avatar
+		p.name #{friend.username}

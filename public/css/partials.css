@@ -42,6 +42,10 @@ nav li:hover:not(.active) {
 	background-color: #111;
 }
 
+nav li #navInbox {
+	margin-left: auto;
+}
+
 nav li:last-child {
 	margin-left: auto;
 }

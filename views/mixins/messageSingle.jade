@@ -1,0 +1,5 @@
+// Display a message on the inbox page when selecting a friend
+mixin messageSingle(message)
+	.card-message
+		img(src=message.sender.avatar, width='64px', height='64px').avatar
+		p.text Text: #{message.text}
