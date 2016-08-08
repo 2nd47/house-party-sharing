@@ -19,10 +19,6 @@ var message = new Schema({
     ref: 'User',
     required: true
   },
-  avatar: {
-    type: String,
-    required: true
-  },
   text: {
     type: String,
     required: true

@@ -14,6 +14,9 @@ block content
   p Price: #{listing.price}
   p Sizing: #{listing.sizing}
   p Description: #{listing.description}
+  p Owner:
+    img(src=listing.owner.avatar, width='64px', height='64px')
+    a(href='/profile/' + listing.owner.username) #{listing.owner.username}
   p Item becomes avaialable on: #{listing.dateFrom}
   p Item stops being available on: #{listing.dateTo}
   form(action='/api/listing/' + listing._shortid +'/purchase', method='post')#purchase

@@ -141,7 +141,6 @@ module.exports = function(app) {
             // Create a new message to hold the information
             var newMessage = new Message();
             newMessage.sender = sender._id;
-            newMessage.avatar = sender.avatar;
             newMessage.receiver = receiver._id;
             newMessage.text = req.body.message;
 
@@ -171,6 +170,7 @@ module.exports = function(app) {
                 ], function(err, results) {
                   if (err) { throw err; }
                   else {
+                    message.avatar = sender.avatar;
                     res.status(200).json(message);
                   }
                 });

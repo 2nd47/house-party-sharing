@@ -141,16 +141,25 @@ module.exports = function(app) {
     function (err, listing ) {
       if (err) { throw err; }
       else {
-        getAllReviews(listing, function(err, reviews) {
+        // Get the owner's information
+        User.findById(listing.owner).
+        select('avatar username').
+        exec(function(err, owner) {
           if (err) { throw err; }
           else {
-            helpers.userHasPurchased(req.user._id, listing._id, function(err, hasPurchased) {
+            getAllReviews(listing, function(err, reviews) {
               if (err) { throw err; }
               else {
-                res.render('listing', {
-                  listing: listing,
-                  reviews: reviews,
-                  hasPurchased: hasPurchased
+                helpers.userHasPurchased(req.user._id, listing._id, function(err, hasPurchased) {
+                  if (err) { throw err; }
+                  else {
+                    listing.owner = owner;
+                    res.render('listing', {
+                      listing: listing,
+                      reviews: reviews,
+                      hasPurchased: hasPurchased
+                    });
+                  }
                 });
               }
             });
