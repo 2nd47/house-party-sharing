@@ -1,0 +1,18 @@
+// Landing Page contents
+extends layout
+
+block css
+
+block title
+  title BrandUsed
+
+block content
+  .profile
+    .avatar 
+      img(src=user.avatar)
+    .username #{user.username}
+    .name #{user.name}
+    .bio #{user.bio}
+  .item-listings
+    each listing in listings
+      +listingSingle(listing)

@@ -18,11 +18,11 @@ module.exports = function(app) {
       if (err) { throw err; }
       else {
         // Find all listings associated by this user
-        Listing.find({ owner: user._id }).
-        select('-owner').
+        Listing.find({ owner: req.user._id }).
         exec(function(err, listings) {
           if (err) { throw err; }
           else {
+            console.log(listings);
             res.render('profile', { user: user, listings: listings });
           }
         });
