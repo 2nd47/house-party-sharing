@@ -1,5 +1,7 @@
 var Listing = require('../models/listing')
-  , User = require('../models/user');
+  , User = require('../models/user')
+  , helpers = require('./helpers')()
+  , fs = require('fs');
 
 module.exports = function(app) {
 
@@ -14,7 +16,6 @@ module.exports = function(app) {
     exec(function(err, listings) {
       if (err) { throw err; }
       else {
-        console.log(listings);
         res.render('browse', { listings: listings })
       }
     });
@@ -35,17 +36,46 @@ module.exports = function(app) {
     listing.dateFrom = req.body.dateFrom;
     listing.dateTo = req.body.dateTo;
 
-    listing.save(function(err, saved) {
+    listing.save(function(err, listing) {
       if (err) { throw err; }
       else {
-        console.log('Listing created with name: ' + listing.name);
-        res.redirect('/browse/' + listing._shortid);
+        fs.readFile(req.file.path, function (err, data) {
+          var localPath =
+            __dirname +
+            '../../public/images/listings/' +
+            listing._shortid;
+          var publicPath =
+            '/images/listings/' +
+            listing._shortid +
+            '/' +
+            req.file.originalname;
+          helpers.mkdirIfNotExist(localPath, function() {
+            localPath += '/' + req.file.originalName;
+            fs.writeFile(localPath, data, function (err) {
+              Listing.findById(listing._shortid, function(err, listingUpdate) {
+                if (err) { throw err; }
+                else {
+                  listingUpdate.display = publicPath;
+                  listingUpdate.save(function(err) {
+                    res.redirect('/browse/' + listing._shortid);
+                  });
+                }
+              });
+            });
+          });
+        });
       }
     });
   }
 
   this.purchase = function(req, res) {
-    res.redirect('/404');
+    Listing.findOne({ _shortid : req.params.listing_shortid },
+    function(err, listing) {
+      listing.purchasers.push(req.user._id);
+      listing.save(function(err) {
+        res.redirect('/browse/' + );
+      });
+    });
   }
 
   this.edit = function(req, res) {

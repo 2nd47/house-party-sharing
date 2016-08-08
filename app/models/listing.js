@@ -16,6 +16,7 @@ var listing = new Schema({
 	},
   owner: {
     type: ObjectId,
+    ref: 'User',
     required: true
   },
 	designer: {
@@ -50,8 +51,17 @@ var listing = new Schema({
     type: String
   },
   // [latitude, longitude]
-  location: [{
+  geolocation: [{
     type: Number,
+    default: []
+  }],
+  location: {
+    type: String,
+    default: '27 King\'s College Circle, Toronto'
+  },
+  purchasers: [{
+    type: ObjectId,
+    ref: 'User',
     default: []
   }]
 }, { collection : 'listings', timestamps: true });

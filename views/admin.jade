@@ -8,3 +8,5 @@ block title
 
 block content
   h1 Admin page!
+  form(action='/api/admin/db/drop/all', method='post')#dbDropAll
+    input(type='submit', value='Drop all databases', form='dbDropAll')

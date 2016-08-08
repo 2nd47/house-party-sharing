@@ -7,11 +7,14 @@ var startServer = function(testServer) {
 
   // require necessary modules and establish routing
   var auth = require('./app/controllers/auth')(app)
+    , admin = require('./app/controllers/admin')(app)
     , user = require('./app/controllers/user')(app)
     , listing = require('./app/controllers/listing')(app)
-    , routing = require('./routing')(app, auth, user, listing);
+    , routing = require('./routing')(app, auth, admin, user, listing);
 
-  user.hardcodeUsers();
+  admin.hardcodeUsers(function() {
+    console.log('Created both test accounts!');
+  });
 
   /*app.use(function(req, res, next){
     res.status(404);

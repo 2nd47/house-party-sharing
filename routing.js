@@ -1,7 +1,8 @@
 var express = require('express')
-  , morgan = require('morgan');
+  , morgan = require('morgan')
+  , upload = require('multer')({ dest: 'uploads/' });
 
-module.exports = function(app, auth, user, listing) {
+module.exports = function(app, auth, admin, user, listing) {
 
   // Log all routes
   app.use(morgan('dev'));
@@ -50,10 +51,10 @@ module.exports = function(app, auth, user, listing) {
   app.get('/profile/:username', user.profile);
 
   app.get('/api/listing/getAll', listing.getAll);
-  app.post('/api/listing/create', listing.create);
-  app.post('/api/listing/:listing_id/purchase', listing.purchase);
-  //app.post('/api/listing/:listing_id/edit', listing.editListing);
-  app.delete('api/listing/:listing_id', listing.delete);
-  //app.post('/api/admin/database/reset', admin.resetDatabase);
+  app.post('/api/listing/create', upload.single('display'), listing.create);
+  app.post('/api/listing/:listing_shortid/purchase', listing.purchase);
+  //app.post('/api/listing/:listing_shortid/edit', listing.editListing);
+  app.delete('api/listing/:listing_shortid', listing.delete);
+  app.post('/api/admin/db/drop/all', admin.resetDatabase);
 
 };

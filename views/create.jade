@@ -8,7 +8,9 @@ block title
 
 block content
   h1 Create page!
-  form(action='/api/listing/create', method='post')#create-listing
+  form(action='/api/listing/create', method='post', enctype="multipart/form-data")#create-listing
+    p Display picture:
+    input(type="file", name="display")
     p Name:
     input(type='text', name='name')
     p Designer:

@@ -38,6 +38,7 @@ var user = new Schema({
   },
   listings: [{
     type: ObjectId,
+    ref: 'Listing',
     default: []
   }],
   isAdmin: {
@@ -46,8 +47,17 @@ var user = new Schema({
   },
   avatar: {
     type: String,
-    default: "/images/users/placeholder.png"
-  }
+    default: '/images/users/placeholder.png'
+  },
+  location: {
+    type: String,
+    default: '27 King\'s College Circle, Toronto'
+  },
+  purchased: [{
+    type: ObjectId,
+    ref: 'Listing',
+    default: []
+  }]
 }, { collection : 'users', timestamps: true });
 
 // Hash passwords before storing them in the database
