@@ -1,3 +1,51 @@
-#friend-active {
-	background-color: red;
+main .friends #friend-active {
+	background-color: var(--color-accent);
+}
+
+main .messages {
+	display: none;
+}
+
+main .friends {
+	margin-top: 2em;
+	float: right;
+	width: 30%;
+}
+
+main .card-friend {
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+}
+
+main .card-friend p {
+	margin: auto;
+	font-weight: bolder;
+	font-size: 200%;
+}
+
+main .messages {
+	float: left;
+	width: 60%;
+	margin-top: 2em;
+	margin-right: 5%;
+	margin-left: 5%;
+}
+
+main input[type='text'] {
+	height: 5em;
+	width: 100%;
+}
+
+main .card-message {
+	margin-top: 2em;
+	display:flex;
+	flex-direction: row;
+	border: 2px solid var(--color-dark);
+	border-radius: 5px;
+}
+
+main .card-message p {
+	margin-top: 0.5em;
+	margin-left: 1em;
 }

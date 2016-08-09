@@ -4,5 +4,5 @@ mixin reviewSingle(review)
     a(href='/profile/' + review.username)
       img(src=review.avatar, width='64px', height='64px')
       p #{review.username}
-    p #{review.rating}
+    p.rating #{review.rating}
     p #{review.comment}

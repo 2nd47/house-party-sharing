@@ -25,7 +25,7 @@ module.exports = function() {
   //  }
   // }
   this.userHasPurchased = function(userId, listingId, cb) {
-    Listing.find({
+    Listing.findOne({
       _id: listingId,
       purchasers: { $in: [userId] }
     }).

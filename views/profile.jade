@@ -2,7 +2,7 @@
 extends layout
 
 block css
-  link(type='text/css', rel='stylesheet', href='/css/listing.css')
+  link(type='text/css', rel='stylesheet', href='/css/browse.css')
 
 block title
   title BrandUsed
@@ -10,18 +10,19 @@ block title
 block content
   .profile
     .avatar 
-      img(src=user.avatar, width='256px', height='256px')
+      img(src=user.avatar, width='120px', height='120px')
     .username #{user.username}
     .name #{user.name}
     .bio #{user.bio}
+    if !isFriends 
+      .addFriend
+        form(action='/api/profile/' + user.username + '/friend', method='post')#addFriend
+          input(type='submit', value='Add to Friends', form='addFriend')
+    else
+      .removeFriend
+        form(action='/api/profile/' + user.username + '/friend/remove', method='post')#removeFriend
+          input(type='submit', value='Remove from Friends', form='removeFriend')
+
   .item-listings
     each listing in listings
       +listingSingle(listing)
-  if !isFriends 
-    .addFriend
-      form(action='/api/profile/' + user.username + '/friend', method='post')#addFriend
-        input(type='submit', value='Add to Friends', form='addFriend')
-  else
-    .removeFriend
-      form(action='/api/profile/' + user.username + '/friend/remove', method='post')#removeFriend
-        input(type='submit', value='Remove from Friends', form='removeFriend')

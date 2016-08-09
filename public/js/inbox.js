@@ -12,6 +12,7 @@ $( document ).ready(function() {
 	});
 
 	$('.card-friend:not(#friend-active)').click(function() {
+		$('.messages').css('display', 'block');
 		$('#friend-active').removeAttr('id');
 		$(this).attr('id', 'friend-active');
 		$.ajax({
@@ -23,13 +24,15 @@ $( document ).ready(function() {
 });
 
 var createMessages = function(messages) {
-	for (i in messages) {
-		createMessage(messages[i]);
+	var messagesLatest = messages.reverse();
+	for (i in messagesLatest) {
+		createMessage(messagesLatest[i]);
 	}
 }
 
 var createMessage = function(message) {
 	var $newMessage = $('<div>').addClass('card-message');
+	console.log(message);
 	$newMessage.append(
 		$('<img>').
 		addClass('message-avatar').
@@ -42,5 +45,5 @@ var createMessage = function(message) {
 		addClass('message-text').
 		text(message.text)
 	);
-	$('.messages').prepend($newMessage);
+	$('.message-cards').prepend($newMessage);
 }

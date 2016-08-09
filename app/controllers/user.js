@@ -123,10 +123,22 @@ module.exports = function(app) {
                   }
                 ]
               }, function(err, messages) {
-                if (err) { throw err; }
-                else {
-                  res.status(200).json(messages);
-                }
+                console.log(messages);
+                async.each(messages, function(message, callback) {
+                  User.findById(message.sender, function(err, sender) {
+                    if (err) { callback(err); }
+                    else {
+                      message.avatar = sender.avatar;
+                      console.log(message);
+                      callback();
+                    }
+                  });
+                }, function(err) {
+                  if (err) { throw err; }
+                  else {
+                      res.status(200).json(messages);
+                  }
+                });
               });
           };
         });

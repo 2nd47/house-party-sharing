@@ -2,27 +2,20 @@
 extends layout
 
 block css
+  link(type='text/css', rel='stylesheet', href='/css/create.css')
 
 block title
   title BrandUsed
 
 block content
-  h1 Create page!
   form(action='/api/listing/create', method='post', enctype="multipart/form-data")#create-listing
-    p Display picture:
+    p Select an image and provide some details for your listing
     input(type="file", name="display")
-    p Name:
-    input(type='text', name='name')
-    p Designer:
-    input(type='text', name='designer')
-    p Price:
-    input(type='text', name='price')
-    p Sizing:
-    input(type='text', name='sizing')
-    p Description:
-    input(type='text', name='description')
-    p Item becomes available on:
-    input(type='text', name='dateFrom')
-    p Item stops being available on: (optional)
-    input(type='text', name='dateTo')
+    input(type='text', name='name', placeholder='Name')
+    input(type='text', name='designer', placeholder='Designer')
+    input(type='text', name='price', placeholder='Price')
+    input(type='text', name='sizing', placeholder='Size')
+    input(type='text', name='description', placeholder='Description')
+    input(type='text', name='dateFrom', placeholder='Date when available')
+    input(type='text', name='dateTo', placeholder='Date when unavailable')
     input(type='submit', value='create', form='create-listing')

@@ -1,0 +1,30 @@
+main {
+  padding-top: 2em;
+}
+
+/* Input box styling courtesy
+ * http://callmenick.com/post/various-css-input-text-styles
+ */
+
+main form p {
+  margin-bottom: 1em;
+}
+
+main form input[type="text"] {
+  display: block;
+  margin: 0;
+  width: 35%;
+  font-size: medium;
+  box-shadow: none;
+  text-align: left;
+}
+
+main form input[type="text"]:focus {
+  outline: none;
+}
+
+main form input[type="text"].style-4  {
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+}

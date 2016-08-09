@@ -2,38 +2,42 @@
 extends layout
 
 block css
+  link(type='text/css', rel='stylesheet', href='/css/listing.css')
 
 block title
   title BrandUsed
 
 block content
-  h1 Listing page!
-  h2 Details below:
-  p Name: #{listing.name}
-  p Designer: #{listing.designer}
-  p Price: #{listing.price}
-  p Sizing: #{listing.sizing}
-  p Description: #{listing.description}
-  p Owner:
-    img(src=listing.owner.avatar, width='64px', height='64px')
-    a(href='/profile/' + listing.owner.username) #{listing.owner.username}
-  p Item becomes avaialable on: #{listing.dateFrom}
-  p Item stops being available on: #{listing.dateTo}
-  form(action='/api/listing/' + listing._shortid +'/purchase', method='post')#purchase
-    input(type='submit', value='Purchase', form='purchase')
-  if hasPurchased
-    form(action='/api/listing/' + listing._shortid + '/review', method='post')#review
-      label(for='rate1') 1
-      input(type='radio', name='rating', value='1')#rate1
-      label(for='rate2') 2
-      input(type='radio', name='rating', value='2')#rate2
-      label(for='rate3') 3
-      input(type='radio', name='rating', value='3')#rate3
-      label(for='rate4') 4
-      input(type='radio', name='rating', value='4')#rate4
-      label(for='rate5') 5
-      input(type='radio', name='rating', value='5')#rate5
-      input(type='text', name='comment', placeholder='Write a review of the item')
-      input(type='submit', value='Review', form='review')
-  each review in reviews
-    +reviewSingle(review)
+  .overview
+    h1 #{listing.name}
+    h2 #{listing.designer}
+    img(src=listing.display, width='250px', height='400px').preview
+  .details
+    h1.price #{listing.price}
+    .owner
+      img(src=listing.owner.avatar, width='64px', height='64px').avatar
+      a(href='/profile/' + listing.owner.username) #{listing.owner.username}
+    p Sizing: #{listing.sizing}
+    p Description: #{listing.description}
+    p Item becomes avaialable on: #{listing.dateFrom}
+    p Item stops being available on: #{listing.dateTo}
+  .actions
+    form(action='/api/listing/' + listing._shortid +'/purchase', method='post')#purchase
+        input(type='submit', value='Purchase', form='purchase')
+      if hasPurchased
+        form(action='/api/listing/' + listing._shortid + '/review', method='post')#review
+          label(for='rate1') 1
+          input(type='radio', name='rating', value='1')#rate1
+          label(for='rate2') 2
+          input(type='radio', name='rating', value='2')#rate2
+          label(for='rate3') 3
+          input(type='radio', name='rating', value='3')#rate3
+          label(for='rate4') 4
+          input(type='radio', name='rating', value='4')#rate4
+          label(for='rate5') 5
+          input(type='radio', name='rating', value='5')#rate5
+          input(type='text', name='comment', placeholder='Write a review of the item')
+          input(type='submit', value='Review', form='review')
+    .reviews
+      each review in reviews
+        +reviewSingle(review)
