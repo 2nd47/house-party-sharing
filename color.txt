@@ -2,11 +2,11 @@ color.adobe.com
 
 COLOURCODE - STYLE
 
-202E3B -
-3B211C -
-342D3B -
+202E3B - complementary or shades 
+3B211C - shades 
 You left this as the last one up so I figured to save it:
-6E5268 -
+4A3A40-D1A16D-8F1C31-1C2140-4E5B70 - custom 
+
 
 You can try this website also:
 https://coolors.co/
@@ -15,7 +15,15 @@ OR
 https://coolors.co/browser/best/1
 to look at a list of most popular
 
-B1BFCE-74A9CC-EFDBC6-CC7E5F-120003/180007
-93C3C6-2B2D35-D5C7BC-785964-4E5150
-93C3C6-2B2D35-D5C7BC-4E5150-180007 ---
+E2CEC7-E09B7D-C57B57-784851-001C2D (coolers site thingy)
+
+B1BFCE-74A9CC-EFDBC6-CC7E5F-180007
+or
+
+B1BFCE-74A9CC-EFDBC6-CC7E5F-120003
+
+93C3C6- 2B2D35-D5C7BC-785964-4E5150
+
 5E0B15-A1503F-D9CAB3-996B13-8C7A6B
+
+93C3C6-2B2D35-D5C7BC-4E5150-180007 (FIRST PLACE)   
